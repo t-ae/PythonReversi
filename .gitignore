@@ -1,5 +1,5 @@
-checkpoint
+#checkpoint
+#*.ckpt
+#*.ckpt.meta
 *.npy
-*.ckpt
-*.ckpt.meta
 __pycache__

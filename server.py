@@ -18,7 +18,6 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     self.initBoard(1)
     self.ai = "MTS"
   
-  
   def on_message(self, message):
     with self.__lock:
       try:
