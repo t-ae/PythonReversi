@@ -7,6 +7,8 @@ import tornado.httpserver
 import reversi
 import json
 import threading
+import numpy
+import nn
 
 class WSHandler(tornado.websocket.WebSocketHandler):
   __lock = threading.Lock()
@@ -66,9 +68,23 @@ class WSHandler(tornado.websocket.WebSocketHandler):
   def selectedAi(self):
     if(self.ai=="MTS"):
       return lambda board, player: reversi.game.puttableMonteCarloTreeSearch(board, player, 300)
-    # Unimplemented yet
-    #elif(self.ai=="NN"):
-    #  pass
+    elif(self.ai=="NN"):
+      def eval(board, player):
+        puttables = reversi.game.puttables(board, player)
+        print("candidate:", puttables)
+        max = -10000
+        ret = None
+        for p in puttables:
+          b = reversi.game.put(board, player, p)
+          data = numpy.append(player, b.ravel()).astype(float).reshape([1,65])
+          score = player*nn.neuralNet.evaluate(data)
+          print("p:",p,"score:",score)
+          if(score >= max):
+            max = score
+            ret = p
+        return ret
+            
+      return eval
     else:
       return reversi.game.puttableRandom
   
