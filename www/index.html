@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="./reversi.js"></script>
+    <link rel="stylesheet" href="./reversi.css"/>
     <title>Reversi</title>
   </head>
   <body>
-    <p>
-      Hello!
-    </p>
+    <div id="board" class="board-column">
+      
+    </div>
+    <div>
+      <button id="restart_black">Restart(Black)</button>
+      <button id="restart_white">Restart(White)</button><br />
+      AI:
+      <select id="ai">
+        <option value="MTS">MonteCarlo Tree Search</option>
+        <option value="RND">Random</option>
+      </select>
+    </div>
+    <div class="hidden">
+	    <div id="cell" class="cell"></div>
+      <div id="indicator" class="indicator"></div>
+      <div id="row" class="board-row"></div>
+		</div>
   </body>
 </html>

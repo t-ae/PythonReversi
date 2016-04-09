@@ -17,7 +17,7 @@ class Game:
     self.__ds = [(dx, dy) for dx in [0,-1,1] for dy in [0,-1,1]][1:]
   
   def createBoard(self):
-    board = numpy.zeros([8,8])
+    board = numpy.zeros([8,8], dtype=int)
     board[3,3] = self.__black
     board[4,4] = self.__black
     board[3,4] = self.__white
@@ -241,3 +241,6 @@ class Game:
         print(node.move, end="<-")
         node = node.parent
       print("")
+
+
+game = Game()
