@@ -49,7 +49,6 @@ def playRandomlyUnfair(stronger = 1):
       p = game.puttableMonteCarloTreeSearch(board, player, 100)
     else:
       p = game.puttableRandom(board, player)
-      #p = game.puttableMonteCarlo(board, player)
     
     if(p is None):
       player = -player

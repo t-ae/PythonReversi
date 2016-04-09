@@ -122,20 +122,6 @@ class Game:
         return pos
     return None
   
-  def puttableMonteCarlo(self, board, player, playoutNum = 10):
-    max = -playoutNum - 1
-    ret = None
-    for p in self.puttables(board, player):
-      b = numpy.copy(board)
-      self.put(b, player, p)
-      score = 0
-      for i in range(playoutNum):
-        score += player*self.playout(b, -player)
-      if(score >= max):
-        ret = p
-        max = score
-    return ret
-  
   def puttableMonteCarloTreeSearch(self, board, player, playoutNum = 10):
     rootNode = self._Node(self, None, board, player)
     for i in range(playoutNum):

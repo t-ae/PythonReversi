@@ -3,4 +3,4 @@
 import random_play
 import reversi
 
-print(random_play.playRandomlyUnfair())
+random_play.playRandomlyUnfair()

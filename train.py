@@ -40,7 +40,6 @@ with tf.Session() as sess:
   for i in range(100):
     start = time.time()
     game, label = random_play.playRandomlyUnfair(stronger)
-    #game, label = random_play.playMonteCarlo(10)
     sess.run(train_step, feed_dict={x: game, y_: label})
     print("step:",i,"loss:",sess.run(loss, feed_dict={x: game, y_: label}))
     print("time", time.time()-start)
