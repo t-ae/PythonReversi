@@ -8,6 +8,7 @@ import reversi
 import json
 import threading
 import numpy
+import os.path
 
 class WSHandler(tornado.websocket.WebSocketHandler):
   __lock = threading.Lock()
@@ -125,9 +126,8 @@ def make_app():
   return tornado.web.Application([
     (r"/ws", WSHandler),
     (r"/(.*)", tornado.web.StaticFileHandler,
-      {"path": "www", "default_filename": "index.html"}),
+      {"path": os.path.dirname(__file__)+"/www", "default_filename": "index.html"}),
   ])
-
 
 if __name__ == "__main__":
   app = make_app()
