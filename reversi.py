@@ -221,15 +221,13 @@ class Game:
     
     def playout(self):
       win = self.game.playout(self.board, self.player)
-      if win == self.getRootNode().player:
-        self.backpropagate(1)
-      else:
-        self.backpropagate(0)
+      self.backpropagate(win)
     
     def backpropagate(self, win):
       node = self
       while(not node is None):
-        node.totalWins += win
+        if(node.player == -win):
+          node.totalWins += 1
         node.totalPlayouts += 1
         node = node.parent
     
