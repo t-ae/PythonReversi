@@ -254,11 +254,11 @@ class Game:
       print("")
     
     def dump(self, ucb=0, pad=0):
-      print(" "*pad, end="")
-      print(self.move, self.player, ucb, self.opponentTotalWins, self.totalPlayouts, self.maxdepth)
+      print("- "*pad, end="")
+      print(self.move, self.player, ucb, self.opponentTotalWins, self.totalPlayouts)
       for c in self.children:
         u = self.ucb(c)
-        c.dump(u,pad+2)
+        c.dump(u,pad+1)
 
 
 game = Game()
