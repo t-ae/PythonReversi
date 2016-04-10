@@ -135,7 +135,7 @@ class Game:
       
       #node.printRoute()
       node.playout()
-    rootNode.dump()
+    #rootNode.dump()
     return rootNode.selectMove()
   
   def puttableInput(self, board, player):
