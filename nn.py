@@ -23,8 +23,8 @@ class NeuralNet:
 
     self.y = tf.matmul(h, W2) + b2
 
-    loss = tf.nn.l2_loss(self.y_-self.y)
-    self.train_step = tf.train.AdamOptimizer(1e-4).minimize(loss)
+    self.l2loss = tf.nn.l2_loss(self.y_-self.y)
+    self.train_step = tf.train.AdamOptimizer(1e-4).minimize(self.l2loss)
 
     self.saver = tf.train.Saver()
     
@@ -42,6 +42,9 @@ class NeuralNet:
   
   def train(self, inputs, labels):
     return self.sess.run(self.train_step, feed_dict={self.x:inputs, self.y_: labels})
+  
+  def loss(self, inputs, labels):
+    return self.sess.run(self.l2loss, feed_dict={self.x:inputs, self.y_: labels})
   
   def save(self):
     self.saver.save(self.sess, "./variables.ckpt")

@@ -122,7 +122,7 @@ class Game:
         return pos
     return None
   
-  def puttableMonteCarloTreeSearch(self, board, player, playoutNum = 10):
+  def puttableMonteCarloTreeSearch(self, board, player, playoutNum = 100):
     rootNode = self._Node(self, None, board, player)
     for i in range(playoutNum):
       node = rootNode
@@ -135,6 +135,7 @@ class Game:
       
       #node.printRoute()
       node.playout()
+    #rootNode.dump()
     return rootNode.selectMove()
   
   def puttableInput(self, board, player):
@@ -166,7 +167,7 @@ class Game:
   
   
   class _Node:
-    def __init__(self, game,  parent, board, player, move = None):
+    def __init__(self, game,  parent, board, player, move = None, maxdepth=10):
       self.game = game
       self.parent = parent
       
@@ -174,6 +175,7 @@ class Game:
       self.player = player
       
       self.move = move
+      self.maxdepth = maxdepth
       
       self.puttables = game.puttables(self.board, self.player)
       if(len(self.puttables) == 0):
@@ -189,7 +191,7 @@ class Game:
       random.shuffle(self.puttables)
       p = self.puttables.pop()
       b = self.game.put(self.board, self.player, p)
-      child = self.game._Node(self.game, self, b, -self.player, p)
+      child = self.game._Node(self.game, self, b, -self.player, p, self.maxdepth-1)
       self.children.append(child)
       return child
     
@@ -224,7 +226,7 @@ class Game:
     
     def backpropagate(self, win):
       node = self
-      while(not node.parent is None):
+      while(not node is None):
         node.totalWins += win
         node.totalPlayouts += 1
         node = node.parent
@@ -241,6 +243,13 @@ class Game:
         print(node.move, end="<-")
         node = node.parent
       print("")
+    
+    def dump(self, ucb=0, pad=0):
+      print(" "*pad, end="")
+      print(self.move, ucb, self.totalWins, self.totalPlayouts)
+      for c in self.children:
+        u = self.ucb(c)
+        c.dump(u,pad+2)
 
 
 game = Game()
