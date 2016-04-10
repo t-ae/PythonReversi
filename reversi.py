@@ -176,11 +176,13 @@ class Game:
       
       self.move = move
       self.maxdepth = maxdepth
-      
-      self.puttables = game.puttables(self.board, self.player)
-      if(len(self.puttables) == 0):
-        player = -player
+      if(maxdepth==0):
+        self.puttables=[]
+      else:
         self.puttables = game.puttables(self.board, self.player)
+        if(len(self.puttables) == 0):
+          player = -player
+          self.puttables = game.puttables(self.board, self.player)
       
       self.children = []
       
