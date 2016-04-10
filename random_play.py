@@ -64,11 +64,11 @@ def playRandomlyUnfair(stronger = 1):
     if(player == stronger):
       #p = game.puttableRandom(board, player)
       #p = game.puttableInput(board, player)
-      p = game.puttableMonteCarloTreeSearch(board, player, 500)
+      p = game.puttableMonteCarloTreeSearch(board, player, 100)
       #p = puttableNN(board, player)
     else:
-      p = puttableNN(board, player)
-      #p = game.puttableMonteCarloTreeSearch(board, player, 100)
+      #p = puttableNN(board, player)
+      p = game.puttableMonteCarloTreeSearch(board, player, 100,1)
       #p = game.puttableRandom(board, player)
     
     if(p is None):
@@ -87,5 +87,5 @@ def playRandomlyUnfair(stronger = 1):
     game.printBoard(board)
   
   win = game.judge(board)
-  #print("win:", win)
+  print("win:", win)
   return numpy.vstack(history).astype(float), numpy.vstack([[win]]*len(history)).astype(float)

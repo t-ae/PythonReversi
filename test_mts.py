@@ -12,5 +12,5 @@ board[5,4] = -1
 
 reversi.game.printBoard(board)
 
-p = reversi.game.puttableMonteCarloTreeSearch(board, 1, )
+p = reversi.game.puttableMonteCarloTreeSearch(board, 1, 100,1)
 print(p)
