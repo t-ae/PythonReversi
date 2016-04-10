@@ -122,7 +122,7 @@ class Game:
         return pos
     return None
   
-  def puttableMonteCarloTreeSearch(self, board, player, playoutNum = 100, maxdepth=100):
+  def puttableMonteCarloTreeSearch(self, board, player, playoutNum = 100, maxdepth=-1):
     rootNode = self._Node(self, None, board, player, maxdepth)
     for i in range(playoutNum):
       node = rootNode
@@ -167,7 +167,7 @@ class Game:
   
   
   class _Node:
-    def __init__(self, game,  parent, board, player, maxdepth=10, move = None):
+    def __init__(self, game,  parent, board, player, maxdepth=-1, move = None):
       self.game = game
       self.parent = parent
       
