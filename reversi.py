@@ -186,7 +186,8 @@ class Game:
       
       self.children = []
       
-      self.totalWins = 0
+      # number of wins of oppent(=-self.player)
+      self.opponentTotalWins = 0
       self.totalPlayouts = 0
     
     def expandChild(self):
@@ -213,10 +214,17 @@ class Game:
       if(len(self.children)==0 and len(self.puttables)==0):
         return None
       else:
-        return self.selectNode().move
+        ret = None
+        max = -10000
+        for c in self.children:
+          score = c.opponentTotalWins / c.totalPlayouts
+          if(score >= max):
+            ret = c
+            max = score
+        return ret.move
     
     def ucb(self, child):
-      return child.totalWins / child.totalPlayouts \
+      return child.opponentTotalWins / child.totalPlayouts \
         + numpy.sqrt(2*self.totalPlayouts / child.totalPlayouts)
     
     def playout(self):
@@ -227,7 +235,7 @@ class Game:
       node = self
       while(not node is None):
         if(node.player == -win):
-          node.totalWins += 1
+          node.opponentTotalWins += 1
         node.totalPlayouts += 1
         node = node.parent
     
@@ -246,7 +254,7 @@ class Game:
     
     def dump(self, ucb=0, pad=0):
       print(" "*pad, end="")
-      print(self.move, ucb, self.totalWins, self.totalPlayouts)
+      print(self.move, self.player, ucb, self.opponentTotalWins, self.totalPlayouts)
       for c in self.children:
         u = self.ucb(c)
         c.dump(u,pad+2)
