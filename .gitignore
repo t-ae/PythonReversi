@@ -1,5 +1,3 @@
-#checkpoint
-#*.ckpt
-#*.ckpt.meta
 *.npy
 __pycache__
+.vscode
